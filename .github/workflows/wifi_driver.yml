@@ -91,8 +91,6 @@ jobs:
             --enable CONFIG_WLAN_VENDOR_MEDIATEK \
             --module CONFIG_MT7601U \
             --enable CONFIG_MAC80211 \
-            --enable CONFIG_CFG80211 \
-            --enable CONFIG_CFG80211_WEXT \
             --enable CONFIG_USB
 
           make O=out ARCH=arm64 \
