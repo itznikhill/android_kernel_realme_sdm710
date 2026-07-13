@@ -25,8 +25,6 @@ env:
   KERNELSU_SETUP_BRANCH: hookless
   KBUILD_BUILD_USER: "@d_ai_n"
   KBUILD_BUILD_HOST: "ubuntu-24.04"
-  PRE_SLMK_BASE: "eaaa0c3c932381bfc45a160b2daacc103f8caa6b"
-  LAST_SLMK_COMMIT: "1d066613345ab99296d367ac0ad09991c438c505"
 
 jobs:
   build:
@@ -38,20 +36,12 @@ jobs:
       matrix:
         variant:
           - kernel_version: "SLMK-EOL"
-          - kernel_version: "EOL"
 
     steps:
       - name: Checkout kernel source
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-
-      - name: Drop Simple LMK commits via rebase
-        if: ${{ matrix.variant.kernel_version == 'EOL' }}
-        run: |
-          git config user.email "action@github.com"
-          git config user.name "GitHub Action"
-          git rebase --onto $PRE_SLMK_BASE $LAST_SLMK_COMMIT
 
       - name: Restore ccache
         uses: hendrikmuhs/ccache-action@v1.2.23
@@ -130,8 +120,6 @@ jobs:
           KERNEL_VERSION: ${{ matrix.variant.kernel_version }}
         run: |
           mkdir -p artifacts
-          cp out/arch/arm64/boot/$KERNEL_IMAGE artifacts/
-          cp out/.config artifacts/kernel.config
 
           mkdir -p .deps/AnyKernel3_staging
           cp -r .deps/AnyKernel3/* .deps/AnyKernel3_staging/
@@ -164,7 +152,6 @@ jobs:
       matrix:
         variant:
           - kernel_version: "SLMK-EOL"
-          - kernel_version: "EOL"
     permissions:
       contents: write
     steps:
@@ -182,4 +169,3 @@ jobs:
           name: Khaenriah-${{ matrix.variant.kernel_version }}-${{ github.run_number }}
           files: |
             *.zip
-            kernel.config
