@@ -1,4 +1,4 @@
-name: Build Khaenriah Kernel
+name: Build Khaenriah Kernel with wifi_driver
 
 on:
   workflow_dispatch:
