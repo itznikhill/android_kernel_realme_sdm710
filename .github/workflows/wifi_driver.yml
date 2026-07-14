@@ -85,7 +85,7 @@ jobs:
           ./scripts/config --file out/.config \
              --set-str CONFIG_LOCALVERSION "-${KERNEL_NAME}-${KERNEL_VERSION}"
 
-          wget wget -O add-wifi-injection-4.14.patch https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-kernel-builder/-/raw/main/patches/4.14/add-wifi-injection-4.14.patch
+          wget -O add-wifi-injection-4.14.patch https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-kernel-builder/-/raw/main/patches/4.14/add-wifi-injection-4.14.patch
           patch -p1 < add-wifi-injection-4.14.patch
 
           # Enable mt7601u USB WiFi driver + injection dependency chain (no NetHunter patches applied)
